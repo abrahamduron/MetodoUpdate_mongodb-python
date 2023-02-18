@@ -3,15 +3,11 @@ from dotenv import load_dotenv
 
 def main():
     client, db = DbMongo.getDB()
-   # estudiante = Estudiante("Jertrudis", "Lorenzana", "87582535")
-   # estudiante.save(db)
-    #estudiante.apellido = "Duron Rios"
-   # estudiante.update(db)
-   # estudiante.delete(db)
 
-    lista_estudiantes = Estudiante.get_list(db)
-    print(lista_estudiantes[0].nombre)
-    lista_estudiantes[0].delete(db)
+    Estudiante.delete_all(db)
+    #############################
+    estudiante = Estudiante("Jertrudis", "Vichenzo", "87582535")
+    estudiante.save(db)
 
     client.close()
     

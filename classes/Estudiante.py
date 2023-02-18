@@ -12,15 +12,16 @@ class Estudiante:
     def save(self, db):
         collection = db[self.__collection]
         result = collection.insert_one(self.__dict__)
-        self.__id = result.inserted_id
+        self.__id =  result.inserted_id
 
     def update (self, db):
         collection = db[self.__collection]
-        filterToUse = {'_id' : self.__id}
-        objStore = {'$set' : self.__dict__}
-        collection.update_one(filterToUse, objStore)
+        filterToUse = { '_id' : self.__id }
+        objStore = { '$set' : self.__dict__ }
+        collection.update_one( filterToUse , objStore )
 
-    def delete (self, db):
+
+    def delete(self, db):
         collection = db[self.__collection]
         filterToUse = {'_id' : self.__id}
         collection.delete_one(filterToUse)
@@ -32,16 +33,20 @@ class Estudiante:
 
         list_estudiantes = []
         for e in estudiantes :
-            temp_estudiante = Estudiante(
+            temp_estudiantes = Estudiante(
                 e["nombre"]
                 , e["apellido"]
                 , e["telefono"]
                 , e["_id"]
             )
+            list_estudiantes.append(temp_estudiantes)
+        return list_estudiantes
 
-            list_estudiantes.append(temp_estudiante)
-            print(list_estudiantes)
-            return list_estudiantes
+    @staticmethod
+    def delete_all(db):
+        lista_e = Estudiante.get_list(db)
+        for e in lista_e:
+            e.delete(db)
 
 
 
