@@ -22,5 +22,3 @@ class DbMongo:
         client = pymongo.MongoClient(uri)
         db = client[os.environ['DB']]
         return client, db
-
-#mongodb+srv://unah:<password>@cluster0.ntblok2.mongodb.net/?retryWrites=true&w=majority
