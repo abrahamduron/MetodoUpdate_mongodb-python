@@ -2,12 +2,12 @@ from classes import Estudiante, DbMongo
 from dotenv import load_dotenv
 
 def main():
-    estudiante = Estudiante("Sheryl", "Montoya", "96904707")
+    estudiante = Estudiante("Jertrudis", "Lorenzana", "87582535")
     estudiante.save()
-    estudiante.nombre = "Esmeralda"
-    estudiante.apellido = "Castro"
-    estudiante.telefono = "85105235"
-    estudiante.update('63e7d6c38fe491575b2f3f7f')
+    estudiante.nombre = "Wendy"
+    estudiante.apellido = "Navas"
+    estudiante.telefono = "95287525"
+    estudiante.update('63f06143205a5b1d524e6c26')
     
 if __name__ == "__main__":
     load_dotenv()
