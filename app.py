@@ -2,8 +2,8 @@ from classes import Estudiante, DbMongo
 from dotenv import load_dotenv
 
 def main():
-    estudiante =Estudiante("Sheryl", "Montoya", "96904707")
-    #estudiante.save()
+    estudiante = Estudiante("Sheryl", "Montoya", "96904707")
+    estudiante.save()
     estudiante.nombre = "Esmeralda"
     estudiante.apellido = "Castro"
     estudiante.telefono = "85105235"
