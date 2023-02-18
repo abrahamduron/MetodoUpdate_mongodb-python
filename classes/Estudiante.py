@@ -19,6 +19,14 @@ class Estudiante:
         objStore = {'$set' : self.__dict__}
         collection.update_one(filterToUse, objStore)
 
+    def delete (self, db):
+        collection = db[self.__collection]
+        filterToUse = {'_id' : self.__id}
+        collection.delete_one(filterToUse)
+        #collection.update_one(filterToUse, objStore)
+
+
+
 
     """def update(self, id_Estudiante):
         client, db = DbMongo.getDB()

@@ -10,6 +10,8 @@ def main():
 
     estudiante.update(db)
 
+    estudiante.delete(db)
+
     client.close()
     
 if __name__ == "__main__":
