@@ -7,7 +7,7 @@ def main():
     estudiante.nombre = "Wendy"
     estudiante.apellido = "Navas"
     estudiante.telefono = "95287525"
-    estudiante.update('63f06143205a5b1d524e6c26')
+    estudiante.update('63f0610c4beebf0166e7e24f')
     
 if __name__ == "__main__":
     load_dotenv()

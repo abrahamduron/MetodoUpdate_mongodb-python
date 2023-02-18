@@ -14,12 +14,12 @@ class Estudiante:
         collection.insert_one(self.__dict__)
         client.close()
         
-    def update(self, id):
+    def update(self, id_Estudiante):
         client, db = DbMongo.getDB()
         collection = db[self.__collection]
         resp = collection.update_one(  
         {
-        '_id': ObjectId(id)
+        '_id': ObjectId(id_Estudiante)
         }, 
         {
             '$set': {
