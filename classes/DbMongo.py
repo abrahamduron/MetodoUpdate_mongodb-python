@@ -21,4 +21,5 @@ class DbMongo:
  
         client = pymongo.MongoClient(uri)
         db = client[os.environ['DB']]
+
         return client, db
