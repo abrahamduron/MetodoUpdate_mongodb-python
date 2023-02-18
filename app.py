@@ -10,7 +10,7 @@ def main():
    # estudiante.delete(db)
 
     lista_estudiantes = Estudiante.get_list(db)
-    #print(lista_estudiantes[0].name)
+    print(lista_estudiantes[0].nombre)
     lista_estudiantes[0].delete(db)
 
     client.close()

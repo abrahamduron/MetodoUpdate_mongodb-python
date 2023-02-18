@@ -40,6 +40,7 @@ class Estudiante:
             )
 
             list_estudiantes.append(temp_estudiante)
+            print(list_estudiantes)
             return list_estudiantes
 
 
