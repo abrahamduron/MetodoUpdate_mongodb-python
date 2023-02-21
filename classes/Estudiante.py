@@ -1,7 +1,6 @@
 from classes.DbMongo import DbMongo
-from bson.objectid import ObjectId  #Para que me reconozco el ObjetID
+from bson.objectid import ObjectId
 class Estudiante:
-
     def __init__(self, nombre, apellido, telefono, id = ""):
         self.nombre = nombre
         self.apellido = apellido
