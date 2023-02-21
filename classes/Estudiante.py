@@ -1,28 +1,31 @@
 from classes.DbMongo import DbMongo
-from bson.objectid import ObjectId
+from classes.Tipoestudiante import Tipoestudiante
+
+
 class Estudiante:
-    def __init__(self, nombre, apellido, telefono, id = ""):
+
+    def __init__(self, nombre, apellido, telefono, tipo_estudiante, id=""):
         self.nombre = nombre
         self.apellido = apellido
         self.telefono = telefono
+        self.tipo_estudiante = tipo_estudiante
         self.__id = id
         self.__collection = "estudiante"
 
     def save(self, db):
         collection = db[self.__collection]
         result = collection.insert_one(self.__dict__)
-        self.__id =  result.inserted_id
+        self.__id = result.inserted_id
 
-    def update (self, db):
+    def update(self, db):
         collection = db[self.__collection]
-        filterToUse = { '_id' : self.__id }
-        objStore = { '$set' : self.__dict__ }
-        collection.update_one( filterToUse , objStore )
-
+        filterToUse = {'_id': self.__id}
+        objStore = {'$set': self.__dict__}
+        collection.update_one(filterToUse, objStore)
 
     def delete(self, db):
         collection = db[self.__collection]
-        filterToUse = {'_id' : self.__id}
+        filterToUse = {'_id': self.__id}
         collection.delete_one(filterToUse)
 
     @staticmethod
@@ -31,14 +34,16 @@ class Estudiante:
         estudiantes = collection.find()
 
         list_estudiantes = []
-        for e in estudiantes :
-            temp_estudiantes = Estudiante(
+        for e in estudiantes:
+            temp_estudiante = Estudiante(
                 e["nombre"]
                 , e["apellido"]
                 , e["telefono"]
+                , e["tipo_estudiante"]
                 , e["_id"]
             )
-            list_estudiantes.append(temp_estudiantes)
+
+            list_estudiantes.append(temp_estudiante)
         return list_estudiantes
 
     @staticmethod
@@ -47,24 +52,38 @@ class Estudiante:
         for e in lista_e:
             e.delete(db)
 
+    @staticmethod
+    def print_full_report_long_path(db):
+        collection = db["estudiante"]
 
-
-
-
-
-
-    """def update(self, id_Estudiante):
-        client, db = DbMongo.getDB()
-        collection = db[self.__collection]
-        resp = collection.update_one(  
-        {
-        '_id': ObjectId(id_Estudiante)
-        }, 
-        {
-            '$set': {
-                "nombre": self.nombre,
-                "apellido": self.apellido,
-                "telefono": self.telefono,
+        for e in collection.find():
+            r = {
+                "nombre": e["nombre"]
+                , "telefono": e["telefono"]
+                , "tipo": Tipoestudiante.get_one(db, e["tipo_estudiante"]).tipo
             }
-        })
-        return resp.modified_count"""
+            print(r)
+
+    @staticmethod
+    def print_full_report_short_path(db):
+        collection = db["estudiante"]
+
+        result = collection.aggregate([
+            {
+                '$lookup': {
+                    'from': "tipo_estudiante"
+                    , 'localField': "tipo_estudiante"
+                    , "foreignField": "_id"
+                    , "as": "te"
+                }
+            }, {
+                '$project': {
+                    'nombre': 1
+                    , 'telefono': 1
+                    , 'te.tipo': 1
+                }
+            }
+        ])
+
+        for d in result:
+            print(d)
